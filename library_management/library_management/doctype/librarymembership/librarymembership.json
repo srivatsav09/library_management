@@ -1,8 +1,8 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "LMS.####",
- "creation": "2023-10-10 16:18:12.961814",
+ "autoname": "LMS.#####",
+ "creation": "2023-10-10 16:58:37.319197",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -17,19 +17,18 @@
  ],
  "fields": [
   {
+   "fieldname": "librarymember",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "LibraryMember",
+   "options": "LibraryMember",
+   "reqd": 1
+  },
+  {
    "fetch_from": "librarymember.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "LibraryMembership",
-   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -40,7 +39,7 @@
   {
    "fieldname": "to_date",
    "fieldtype": "Date",
-   "label": "To date"
+   "label": "To Date"
   },
   {
    "default": "0",
@@ -49,18 +48,19 @@
    "label": "Paid"
   },
   {
-   "fieldname": "librarymember",
+   "fieldname": "amended_from",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "LibraryMember",
-   "options": "LibraryMember",
-   "reqd": 1
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "LibraryMembership",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-10 16:38:38.646262",
+ "modified": "2023-10-10 17:00:23.879046",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "LibraryMembership",
