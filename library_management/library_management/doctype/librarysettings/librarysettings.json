@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-11 11:35:37.386527",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "gold",
+  "article_gold",
+  "gold_price",
+  "loan_gold",
+  "silver",
+  "article_silver",
+  "silver_price",
+  "loan_silver",
+  "bronze",
+  "article_bronze",
+  "bronze_price",
+  "loan_bronze",
+  "normal",
+  "article_normal",
+  "normal_price",
+  "loan_normal"
+ ],
+ "fields": [
+  {
+   "fieldname": "gold",
+   "fieldtype": "Int",
+   "label": "Gold"
+  },
+  {
+   "fieldname": "silver",
+   "fieldtype": "Int",
+   "label": "Silver"
+  },
+  {
+   "fieldname": "bronze",
+   "fieldtype": "Int",
+   "label": "Bronze"
+  },
+  {
+   "fieldname": "normal",
+   "fieldtype": "Int",
+   "label": "Normal"
+  },
+  {
+   "fieldname": "gold_price",
+   "fieldtype": "Int",
+   "label": "Gold Price"
+  },
+  {
+   "fieldname": "silver_price",
+   "fieldtype": "Int",
+   "label": "Silver Price"
+  },
+  {
+   "fieldname": "bronze_price",
+   "fieldtype": "Int",
+   "label": "Bronze Price"
+  },
+  {
+   "fieldname": "normal_price",
+   "fieldtype": "Int",
+   "label": "Normal Price"
+  },
+  {
+   "fieldname": "article_gold",
+   "fieldtype": "Int",
+   "label": "Max No Of Issued Articles for Gold"
+  },
+  {
+   "fieldname": "article_silver",
+   "fieldtype": "Int",
+   "label": "Max No of issued articles for silver"
+  },
+  {
+   "fieldname": "article_bronze",
+   "fieldtype": "Int",
+   "label": "Max no of issued articles for Bronze"
+  },
+  {
+   "fieldname": "article_normal",
+   "fieldtype": "Int",
+   "label": "Max no of issued articles for normal"
+  },
+  {
+   "fieldname": "loan_gold",
+   "fieldtype": "Int",
+   "label": "Loan Period(days) For Gold"
+  },
+  {
+   "fieldname": "loan_silver",
+   "fieldtype": "Int",
+   "label": "Loan Period For Silver"
+  },
+  {
+   "fieldname": "loan_bronze",
+   "fieldtype": "Int",
+   "label": "Loan Period For Bronze"
+  },
+  {
+   "fieldname": "loan_normal",
+   "fieldtype": "Data",
+   "label": "Loan Period For Normal"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-10-13 16:26:30.814026",
+ "modified_by": "Administrator",
+ "module": "Library Management",
+ "name": "LibrarySettings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

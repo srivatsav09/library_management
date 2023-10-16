@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "LMS.#####",
- "creation": "2023-10-10 16:58:37.319197",
+ "creation": "2023-10-11 11:10:38.110023",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,10 +10,13 @@
  "field_order": [
   "librarymember",
   "full_name",
+  "type",
   "from_date",
   "to_date",
+  "cost",
   "paid",
-  "amended_from"
+  "amended_from",
+  "librarysettings"
  ],
  "fields": [
   {
@@ -39,7 +42,8 @@
   {
    "fieldname": "to_date",
    "fieldtype": "Date",
-   "label": "To Date"
+   "label": "To Date",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -52,19 +56,37 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "LibraryMembership",
+   "options": "LibMembership",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Gold\nSilver\nBronze\nNormal"
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Int",
+   "label": "Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "librarysettings",
+   "fieldtype": "Link",
+   "label": "LibrarySettings",
+   "options": "LibrarySettings"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-10 17:00:23.879046",
+ "modified": "2023-10-13 15:57:53.091424",
  "modified_by": "Administrator",
  "module": "Library Management",
- "name": "LibraryMembership",
- "naming_rule": "Expression (old style)",
+ "name": "LibMembership",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {

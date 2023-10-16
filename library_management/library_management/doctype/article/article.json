@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "allow_rename": 1,
  "autoname": "field:article_name",
  "creation": "2023-10-10 15:53:09.057178",
@@ -14,7 +15,12 @@
   "description",
   "isbn",
   "status",
-  "publisher"
+  "publisher",
+  "route",
+  "published",
+  "total_copies_available",
+  "copies_issued",
+  "copies_left"
  ],
  "fields": [
   {
@@ -55,11 +61,40 @@
    "fieldname": "publisher",
    "fieldtype": "Data",
    "label": "Publisher"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "fieldname": "published",
+   "fieldtype": "Data",
+   "label": "Published"
+  },
+  {
+   "fieldname": "total_copies_available",
+   "fieldtype": "Int",
+   "label": "Total Copies Available"
+  },
+  {
+   "fieldname": "copies_issued",
+   "fieldtype": "Int",
+   "label": "Copies Issued",
+   "read_only": 1
+  },
+  {
+   "fieldname": "copies_left",
+   "fieldtype": "Int",
+   "label": "Copies Left",
+   "read_only": 1
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "published",
  "links": [],
- "modified": "2023-10-10 15:59:39.379569",
+ "modified": "2023-10-16 15:05:36.708986",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "Article",
@@ -100,6 +135,7 @@
    "share": 1
   }
  ],
+ "route": "article",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
