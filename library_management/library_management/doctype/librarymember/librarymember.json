@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "LM.####",
+ "autoname": "naming_series:",
  "creation": "2023-10-10 16:01:41.037149",
  "default_view": "List",
  "doctype": "DocType",
@@ -15,7 +15,8 @@
   "phone_no",
   "class",
   "section",
-  "fee_owed"
+  "fee_owed",
+  "naming_series"
  ],
  "fields": [
   {
@@ -40,18 +41,21 @@
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
-   "options": "Email"
+   "options": "Email",
+   "reqd": 1
   },
   {
    "fieldname": "phone_no",
-   "fieldtype": "Data",
+   "fieldtype": "Phone",
    "label": "Phone",
-   "options": "Phone"
+   "options": "Phone",
+   "reqd": 1
   },
   {
    "fieldname": "class",
    "fieldtype": "Data",
-   "label": "Class"
+   "label": "Class",
+   "reqd": 1
   },
   {
    "fieldname": "section",
@@ -63,15 +67,21 @@
    "fieldname": "fee_owed",
    "fieldtype": "Int",
    "label": "Fee Owed"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "LM.-.YY.-.####"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-12 15:35:22.906352",
+ "modified": "2023-10-19 13:49:16.712979",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "LibraryMember",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -87,7 +97,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "first_name"
 }

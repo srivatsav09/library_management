@@ -102,14 +102,14 @@
   },
   {
    "fieldname": "loan_normal",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Loan Period For Normal"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-10-13 16:26:30.814026",
+ "modified": "2023-10-19 13:50:25.452080",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "LibrarySettings",

@@ -14,7 +14,6 @@
   "author",
   "description",
   "isbn",
-  "status",
   "publisher",
   "route",
   "published",
@@ -39,7 +38,8 @@
   {
    "fieldname": "author",
    "fieldtype": "Data",
-   "label": "Author"
+   "label": "Author",
+   "reqd": 1
   },
   {
    "fieldname": "description",
@@ -50,12 +50,6 @@
    "fieldname": "isbn",
    "fieldtype": "Data",
    "label": "ISBN"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "status",
-   "options": "Available\nIssued"
   },
   {
    "fieldname": "publisher",
@@ -75,7 +69,8 @@
   {
    "fieldname": "total_copies_available",
    "fieldtype": "Int",
-   "label": "Total Copies Available"
+   "label": "Total Copies Available",
+   "reqd": 1
   },
   {
    "fieldname": "copies_issued",
@@ -94,7 +89,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2023-10-16 15:05:36.708986",
+ "modified": "2023-10-19 15:12:57.445182",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "Article",
@@ -138,5 +133,6 @@
  "route": "article",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

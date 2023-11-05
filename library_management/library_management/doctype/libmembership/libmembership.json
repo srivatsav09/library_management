@@ -15,8 +15,7 @@
   "to_date",
   "cost",
   "paid",
-  "amended_from",
-  "librarysettings"
+  "amended_from"
  ],
  "fields": [
   {
@@ -37,7 +36,8 @@
   {
    "fieldname": "from_date",
    "fieldtype": "Date",
-   "label": "From Date"
+   "label": "From Date",
+   "reqd": 1
   },
   {
    "fieldname": "to_date",
@@ -64,25 +64,20 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Gold\nSilver\nBronze\nNormal"
+   "options": "Gold\nSilver\nBronze\nNormal",
+   "reqd": 1
   },
   {
    "fieldname": "cost",
    "fieldtype": "Int",
    "label": "Cost",
    "read_only": 1
-  },
-  {
-   "fieldname": "librarysettings",
-   "fieldtype": "Link",
-   "label": "LibrarySettings",
-   "options": "LibrarySettings"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-10-13 15:57:53.091424",
+ "modified": "2023-10-19 13:48:49.737789",
  "modified_by": "Administrator",
  "module": "Library Management",
  "name": "LibMembership",

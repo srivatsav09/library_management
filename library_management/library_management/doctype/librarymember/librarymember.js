@@ -8,11 +8,6 @@ frappe.ui.form.on('LibraryMember', {
 				librarymember: frm.doc.name
 			})
 		})
-		frm.add_custom_button('Create Transaction', () => {
-			frappe.new_doc('LibraryTransaction', {
-				librarymember: frm.doc.name
-			})
-		})
 	}
 });
 

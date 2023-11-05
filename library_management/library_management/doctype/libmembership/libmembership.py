@@ -26,12 +26,12 @@ class LibMembership(Document):
         )
         if exists:
             frappe.throw("There is an active membership for this member")
-        loan_period = frappe.db.get_single_value("LibrarySettings", "loan_period")
-        self.to_date = frappe.utils.add_days(self.from_date, loan_period or 30)
+        # loan_period = frappe.db.get_single_value("LibrarySettings", "loan_period")
+        # self.to_date = frappe.utils.add_days(self.from_date, loan_period or 30)
     
     def validate_type(self):
         mem = self.type
-        settings = frappe.get_doc("LibrarySettings",self.librarysettings)
+        settings = frappe.get_doc("LibrarySettings")
         if mem=="Gold":
             self.to_date = datetime.strptime(self.from_date,'%Y-%m-%d').date() + relativedelta(months=settings.gold)
             cost=settings.gold_price

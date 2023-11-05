@@ -5,4 +5,5 @@
 from frappe.website.website_generator import WebsiteGenerator
 
 class Article(WebsiteGenerator):
-	pass
+	def validate(self):
+		self.copies_left = self.total_copies_available - self.copies_issued

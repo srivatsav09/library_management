@@ -13,17 +13,43 @@ class LibraryTransaction(Document):
     def validate(self):
         if self.type == "Return":
             startdate = self.validate_return()
-            sett = frappe.get_doc("LibrarySettings",self.name)
-            finaldate = startdate + timedelta(days=sett.loan_period)
-            #librarytransaction = frappe.get_doc("LibraryTransaction",self.name)
-            p=self.return_date
-            calcdate = datetime.strptime(self.return_date,'%Y-%m-%d').date()
-            if finaldate < calcdate:
-                fee = int((calcdate - finaldate).days) * 15
+            sett = frappe.get_doc("LibrarySettings")
+            feecheck = frappe.db.get_all("LibMembership",filters={
+                "librarymember":self.librarymember,
+                "docstatus":DocStatus.submitted(),
+                "from_date":("<=",self.return_date),
+                "to_date":(">=",self.return_date)
+                },
+                fields=['name','type'],
+            )
+            if feecheck[-1].type == "Gold":
+                finaldate = startdate + timedelta(days=sett.loan_gold)
+            elif feecheck[-1].type == "Silver":
+                finaldate = startdate + timedelta(days=sett.loan_silver)
+            elif feecheck[-1].type == "Bronze":
+                finaldate = startdate + timedelta(days=sett.loan_bronze)
             else:
-                fee=0
+                finaldate = startdate + timedelta(days=sett.loan_normal)
+            #librarytransaction = self.return_date
+            calc = datetime.strptime(self.return_date,'%Y-%m-%d').date()
+            if finaldate < calc:
+                fee = int((calc - finaldate).days) * 15
+            else:
+                fee=0 
             self.fine_amount = fee
-            t=self.fine_amount
+        else:
+            pass
+
+            # finaldate = startdate + timedelta(days=sett.loan_period)
+            # #librarytransaction = frappe.get_doc("LibraryTransaction",self.name)
+            # p=self.return_date
+            # calcdate = datetime.strptime(self.return_date,'%Y-%m-%d').date()
+            # if finaldate < calcdate:
+            #     fee = int((calcdate - finaldate).days) * 15
+            # else:
+            #     fee=0
+            # self.fine_amount = fee
+            # t=self.fine_amount
         
         
     def before_cancel(self):
@@ -62,8 +88,8 @@ class LibraryTransaction(Document):
 
     def before_submit(self):
         if self.type == "Issue":
-            self.validate_issue()
-            self.validate_maximum_limit()
+            ship = self.validate_issue()
+            self.validate_maximum_limit(ship)
             # set the article status to be Issued
             article = frappe.get_doc("Article", self.article)            
             article.copies_issued +=1
@@ -78,6 +104,14 @@ class LibraryTransaction(Document):
         elif self.type == "Return":
             self.validate_paid()
             startdate=self.validate_return()
+            feecheck = frappe.db.get_all("LibMembership",filters={
+                "librarymember":self.librarymember,
+                "docstatus":DocStatus.submitted(),
+                "from_date":("<=",self.return_date),
+                "to_date":(">=",self.return_date)
+                },
+                fields=['name','type'],
+            )
             article = frappe.get_doc("Article", self.article)
             article.copies_issued -=1
             m=article.copies_issued
@@ -85,17 +119,17 @@ class LibraryTransaction(Document):
             q=article.copies_left
             article.save()
             member= frappe.get_doc("LibraryMember",self.librarymember)
-            feecheck = frappe.get_doc("LibMembership",self.libmembership)
+            #feecheck = frappe.get_doc("LibMembership",self.libmembership)
             if article.copies_issued > article.total_copies_available:
                 frappe.throw("max copies issued. Please wait for return!")
             if article.copies_left < 0 :
                 frappe.throw("no copies left!!")
-            sett = frappe.get_doc("LibrarySettings",self.name)
-            if feecheck.type == "Gold":
+            sett = frappe.get_doc("LibrarySettings")
+            if feecheck[-1].type == "Gold":
                 finaldate = startdate + timedelta(days=sett.loan_gold)
-            elif feecheck.type == "Silver":
+            elif feecheck[-1].type == "Silver":
                 finaldate = startdate + timedelta(days=sett.loan_silver)
-            elif feecheck.type == "Bronze":
+            elif feecheck[-1].type == "Bronze":
                 finaldate = startdate + timedelta(days=sett.loan_bronze)
             else:
                 finaldate = startdate + timedelta(days=sett.loan_normal)
@@ -103,7 +137,8 @@ class LibraryTransaction(Document):
             if finaldate < librarytransaction.return_date:
                 fee = int((librarytransaction.return_date - finaldate).days) * 15
             else:
-                fee=0            
+                fee=0 
+            #self.fine_amount = fee           
             member.fee_owed += fee
             # librarytransaction.fine_amount = fee
             # t=librarytransaction.fine_amount
@@ -111,11 +146,12 @@ class LibraryTransaction(Document):
             member.save()
  
     def validate_issue(self):
-        self.validate_membership()
+        ship = self.validate_membership()
         article = frappe.get_doc("Article", self.article)
         # article cannot be issued if it is already issued
         # if article.status == "Issued":
         #     frappe.throw("Article is already issued by another member")
+        return ship
 
     def validate_return(self):
         article = frappe.get_doc("Article", self.article)
@@ -134,13 +170,12 @@ class LibraryTransaction(Document):
             frappe.throw("member hasnt bought the book to return it")
         return startdate
                                     
-    def validate_maximum_limit(self):
-        member = frappe.get_doc("LibMembership",self.libmembership)
-        if member.type=="Gold":
+    def validate_maximum_limit(self,ship):
+        if ship[-1].type=="Gold":
             max_articles = frappe.db.get_single_value("LibrarySettings", "article_gold")
-        elif member.type=="Silver":
+        elif ship[-1].type=="Silver":
             max_articles = frappe.db.get_single_value("LibrarySettings", "article_silver")
-        elif member.type=="Bronze":
+        elif ship[-1].type=="Bronze":
             max_articles = frappe.db.get_single_value("LibrarySettings", "article_bronze")
         else:
             max_articles = frappe.db.get_single_value("LibrarySettings", "article_normal")
@@ -159,12 +194,22 @@ class LibraryTransaction(Document):
             {
                 "librarymember": self.librarymember,
                 "docstatus": DocStatus.submitted(),
-                "from_date": ("<", self.issue_date),
-                "to_date": (">", self.issue_date),
+                "from_date": ("<=", self.issue_date),
+                "to_date": ("=>", self.issue_date),
             },
         )
         if not valid_membership:
             frappe.throw("The member does not have a valid membership")
+        else:
+            ship = frappe.db.get_all("LibMembership",filters={
+                "librarymember":self.librarymember,
+                "docstatus":DocStatus.submitted(),
+                "from_date":("<=",self.issue_date),
+                "to_date":(">=",self.issue_date)
+                },
+                fields=['name','type'],
+            )
+        return ship
 
     def validate_paid(self):
         lib = frappe.get_doc("LibraryTransaction",self.name)
