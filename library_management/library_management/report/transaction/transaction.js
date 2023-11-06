@@ -60,10 +60,10 @@ frappe.query_reports["Transaction"] = {
 	},
 };
 
-var dt_filter = frappe.query_report.get_filter("min_fee");
-if (frappe.user.has_role("fine_amount")) {
-	dt_filter.toggle_display(false);
-}
-dt_filter.refresh();
+// var dt_filter = frappe.query_report.get_filter("min_fee");
+// if (frappe.user.has_role("fine_amount")) {
+// 	dt_filter.toggle_display(false);
+// }
+// dt_filter.refresh();
 
 

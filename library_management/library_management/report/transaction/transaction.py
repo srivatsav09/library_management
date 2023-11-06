@@ -9,8 +9,8 @@ from datetime import timedelta,datetime
 def execute(filters=None):
 	columns = get_columns()
 	data,flag = get_data(filters)
-	chart = get_chart_data(data,flag,filters)
-	return columns, data ,None, chart
+	chart1 = get_chart_data(data,flag,filters)
+	return columns, data ,None, chart1
 
 def get_columns():
 	return [
@@ -80,6 +80,7 @@ def get_data(filters):
 	return data,flag
 
 def get_chart_data(data,flag,filters):
+	#chart={}
 	if not data:
 		return None
 	startdate = filters.from_date
@@ -127,7 +128,7 @@ def get_chart_data(data,flag,filters):
 			"type":"bar",
 		}
 	else:
-		pass
+		chart={}
 	return chart
 
 
